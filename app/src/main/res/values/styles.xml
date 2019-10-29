@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--========================按钮样式==========================-->
+    <style name="MuBtnBlueCornersThree">
+        <item name="android:background">@drawable/mu_bg_btn_blue_corners_three</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

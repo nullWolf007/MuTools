@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MuTools</string>
+
+    <string name="test">测试</string>
 </resources>
