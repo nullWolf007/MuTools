@@ -1,0 +1,13 @@
+*.iml
+/.idea
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/app/build
+/bks-creator/build
+/captures
+docs
+/app/release
