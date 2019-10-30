@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //toast
     private TextView tv_info;
     private TextView tv_error;
+    private TextView tv_success;
+    private TextView tv_warning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +26,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tv_info = findViewById(R.id.main_tv_info);
         tv_error = findViewById(R.id.main_tv_error);
+        tv_success = findViewById(R.id.main_tv_success);
+        tv_warning = findViewById(R.id.main_tv_warning);
 
         tv_info.setOnClickListener(this);
         tv_error.setOnClickListener(this);
+        tv_success.setOnClickListener(this);
+        tv_warning.setOnClickListener(this);
     }
 
     @Override
@@ -37,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_tv_error:
                 MuToast.error(R.string.test);
+                break;
+            case R.id.main_tv_success:
+                MuToast.success(R.string.test);
+                break;
+            case R.id.main_tv_warning:
+                MuToast.warning(R.string.test);
                 break;
 
         }

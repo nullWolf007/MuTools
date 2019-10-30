@@ -12,6 +12,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,15 +30,23 @@ public class MuToast {
 
     //默认字的颜色
     @ColorInt
-    private static final int YS_DEFAULT_TEXT_COLOR = Color.parseColor("#FFFFFF");
+    private static final int MU_DEFAULT_TEXT_COLOR = Color.parseColor("#FFFFFF");
 
-    //info的颜色
+    //info的背景颜色
     @ColorInt
-    private static final int YS_INFO_COLOR = Color.parseColor("#3F51B5");
+    private static final int MU_INFO_COLOR = Color.parseColor("#3F51B5");
 
-    //error的颜色
+    //error的背景颜色
     @ColorInt
-    private static final int YS_ERROR_COLOR = Color.parseColor("#FD4C5B");
+    private static final int MU_ERROR_COLOR = Color.parseColor("#FD4C5B");
+
+    //success的背景颜色
+    @ColorInt
+    private static final int MU_SUCCESS_COLOR = Color.parseColor("#388E3C");
+
+    //warning的背景颜色
+    @ColorInt
+    private static final int MU_WARNING_COLOR = Color.parseColor("#FFA900");
 
     //字体样式
     private static final String YS_TOAST_TYPEFACE = "sans-serif-condensed";
@@ -51,14 +60,14 @@ public class MuToast {
     }
 
     //info形式toast 字符串id
-    public static void info(int id) {
+    public static void info(@StringRes int id) {
         info(MuTool.getContext(), MuTool.getContext().getString(id), Toast.LENGTH_SHORT, true).show();
     }
 
     //info形式toast
     @CheckResult
     public static Toast info(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ui_mu_info_outline_white_48dp), YS_DEFAULT_TEXT_COLOR, YS_INFO_COLOR, duration, withIcon, true);
+        return custom(context, message, getDrawable(context, R.drawable.ui_mu_info_outline_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_INFO_COLOR, duration, withIcon, true);
     }
 
     //error形式toast 字符串
@@ -67,14 +76,46 @@ public class MuToast {
     }
 
     //error形式toast 字符串id
-    public static void error(int id) {
+    public static void error(@StringRes int id) {
         error(MuTool.getContext(), MuTool.getContext().getString(id), Toast.LENGTH_SHORT, true).show();
     }
 
     //error形式toast
     @CheckResult
     public static Toast error(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ui_mu_clear_white_48dp), YS_DEFAULT_TEXT_COLOR, YS_ERROR_COLOR, duration, withIcon, true);
+        return custom(context, message, getDrawable(context, R.drawable.ui_mu_clear_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_ERROR_COLOR, duration, withIcon, true);
+    }
+
+    //success形式toast 字符串
+    public static void success(@NonNull String message) {
+        success(MuTool.getContext(), message, Toast.LENGTH_SHORT, true).show();
+    }
+
+    //success形式toast 字符串id
+    public static void success(@StringRes int id) {
+        success(MuTool.getContext(), MuTool.getContext().getString(id), Toast.LENGTH_SHORT, true).show();
+    }
+
+    //success形式toast
+    @CheckResult
+    public static Toast success(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
+        return custom(context, message, getDrawable(context, R.drawable.ui_mu_success_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_SUCCESS_COLOR, duration, withIcon, true);
+    }
+
+    //warning形式toast 字符串
+    public static void warning(@NonNull String message) {
+        warning(MuTool.getContext(), message, Toast.LENGTH_SHORT, true).show();
+    }
+
+    //warning形式toast 字符串id
+    public static void warning(@StringRes int id) {
+        warning(MuTool.getContext(), MuTool.getContext().getString(id), Toast.LENGTH_SHORT, true).show();
+    }
+
+    //warning形式toast
+    @CheckResult
+    public static Toast warning(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
+        return custom(context, message, getDrawable(context, R.drawable.ui_mu_warning_outline_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_WARNING_COLOR, duration, withIcon, true);
     }
 
     //toast的具体实现
