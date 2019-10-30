@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_tv_warning:
                 MuToast.warning(R.string.test);
                 break;
-
         }
     }
 }

@@ -67,7 +67,7 @@ public class MuToast {
     //info形式toast
     @CheckResult
     public static Toast info(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ui_mu_info_outline_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_INFO_COLOR, duration, withIcon, true);
+        return custom(context, message, MuToastUtils.getDrawable(context, R.drawable.ui_mu_info_outline_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_INFO_COLOR, duration, withIcon, true);
     }
 
     //error形式toast 字符串
@@ -83,7 +83,7 @@ public class MuToast {
     //error形式toast
     @CheckResult
     public static Toast error(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ui_mu_clear_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_ERROR_COLOR, duration, withIcon, true);
+        return custom(context, message, MuToastUtils.getDrawable(context, R.drawable.ui_mu_clear_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_ERROR_COLOR, duration, withIcon, true);
     }
 
     //success形式toast 字符串
@@ -99,7 +99,7 @@ public class MuToast {
     //success形式toast
     @CheckResult
     public static Toast success(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ui_mu_success_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_SUCCESS_COLOR, duration, withIcon, true);
+        return custom(context, message, MuToastUtils.getDrawable(context, R.drawable.ui_mu_success_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_SUCCESS_COLOR, duration, withIcon, true);
     }
 
     //warning形式toast 字符串
@@ -115,7 +115,7 @@ public class MuToast {
     //warning形式toast
     @CheckResult
     public static Toast warning(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ui_mu_warning_outline_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_WARNING_COLOR, duration, withIcon, true);
+        return custom(context, message, MuToastUtils.getDrawable(context, R.drawable.ui_mu_warning_outline_white_48dp), MU_DEFAULT_TEXT_COLOR, MU_WARNING_COLOR, duration, withIcon, true);
     }
 
     //toast的具体实现
@@ -130,17 +130,17 @@ public class MuToast {
         Drawable drawableFrame;
 
         if (shouldTint) {
-            drawableFrame = tint9PatchDrawableFrame(context, tintColor);
+            drawableFrame = MuToastUtils.tint9PatchDrawableFrame(context, tintColor);
         } else {
-            drawableFrame = getDrawable(context, R.drawable.ui_mu_toast_frame);
+            drawableFrame = MuToastUtils.getDrawable(context, R.drawable.ui_mu_toast_frame);
         }
-        setBackground(toastLayout, drawableFrame);
+        MuToastUtils.setBackground(toastLayout, drawableFrame);
 
         if (withIcon) {
             if (icon == null) {
                 throw new IllegalArgumentException("Avoid passing 'icon' as null if 'withIcon' is set to true");
             }
-            setBackground(toastIcon, icon);
+            MuToastUtils.setBackground(toastIcon, icon);
         } else {
             toastIcon.setVisibility(View.GONE);
         }
@@ -154,26 +154,5 @@ public class MuToast {
         return currentToast;
     }
 
-    public static final Drawable tint9PatchDrawableFrame(@NonNull Context context, @ColorInt int tintColor) {
-        final NinePatchDrawable toastDrawable = (NinePatchDrawable) getDrawable(context, R.drawable.ui_mu_toast_frame);
-        toastDrawable.setColorFilter(new PorterDuffColorFilter(tintColor, PorterDuff.Mode.SRC_IN));
-        return toastDrawable;
-    }
-
-    public static final void setBackground(@NonNull View view, Drawable drawable) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            view.setBackground(drawable);
-        } else {
-            view.setBackgroundDrawable(drawable);
-        }
-    }
-
-    public static final Drawable getDrawable(@NonNull Context context, @DrawableRes int id) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return context.getDrawable(id);
-        } else {
-            return context.getResources().getDrawable(id);
-        }
-    }
 }
 
