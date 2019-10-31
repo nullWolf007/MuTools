@@ -1,16 +1,11 @@
-package com.mumu.mutools.ui.toast;
+package com.mumu.kernel.toast;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.NinePatchDrawable;
-import android.os.Build;
 import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
@@ -19,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mumu.mutools.R;
-import com.mumu.mutools.kernel.MuTool;
+import com.mumu.kernel.MuTool;
+import com.mumu.kernel.R;
 
 
 /**

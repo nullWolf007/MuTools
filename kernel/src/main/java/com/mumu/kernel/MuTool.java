@@ -1,4 +1,4 @@
-package com.mumu.mutools.kernel;
+package com.mumu.kernel;
 
 import android.content.Context;
 

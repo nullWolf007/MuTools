@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mumu.kernel.MuTool;
 import com.mumu.mutools.R;
-import com.mumu.mutools.kernel.MuTool;
-import com.mumu.mutools.ui.toast.MuToast;
+import com.mumu.kernel.toast.MuToast;
 
 public class ToastActivity extends AppCompatActivity implements View.OnClickListener {
 

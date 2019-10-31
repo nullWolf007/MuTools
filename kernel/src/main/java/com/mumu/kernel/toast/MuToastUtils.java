@@ -1,4 +1,4 @@
-package com.mumu.mutools.ui.toast;
+package com.mumu.kernel.toast;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -11,7 +11,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.mumu.mutools.R;
+import com.mumu.kernel.R;
+
 
 /**
  * Created by nullWolf on 2019/10/30.
