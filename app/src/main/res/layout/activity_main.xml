@@ -22,9 +22,9 @@
                 android:text="Toast" />
 
             <TextView
-                android:id="@+id/main_tv_error"
+                android:id="@+id/main_tv_sp"
                 style="@style/MuBtnBlueCornersThree"
-                android:text="error消息" />
+                android:text="SP" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

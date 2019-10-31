@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //toast
     private TextView tv_toast;
+    //sp
+    private TextView tv_sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +24,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MuTool.init(this);
 
         tv_toast = findViewById(R.id.main_tv_toast);
+        tv_sp = findViewById(R.id.main_tv_sp);
 
         tv_toast.setOnClickListener(this);
+        tv_sp.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
-            case R.id.main_tv_toast:
+            case R.id.main_tv_toast://Toast
                 intent = new Intent(this, ToastActivity.class);
+                break;
+            case R.id.main_tv_sp://SharedPresences
+                intent = new Intent(this, SPActivity.class);
                 break;
         }
         if (null != intent) {
