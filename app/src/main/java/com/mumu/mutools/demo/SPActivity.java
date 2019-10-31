@@ -81,16 +81,16 @@ public class SPActivity extends AppCompatActivity implements View.OnClickListene
                 MuSP.clearPreferenceByName(this, "avatar");
                 break;
             case R.id.sp_put_event_time:
-                MuSP.putLong(this, "flag", "event_time", Calendar.getInstance().getTime().getTime());
+                MuSP.putLong(this, "time", "event_time", Calendar.getInstance().getTime().getTime());
                 break;
             case R.id.sp_get_event_time:
-                MuToast.info(MuSP.getLong(this, "flag", "event_time", 0L) + "");
+                MuToast.info(MuSP.getLong(this, "time", "event_time", 0L) + "");
                 break;
             case R.id.sp_remove_event_time:
-                MuSP.clearPreferenceByNameAndKey(this, "flag", "event_time");
+                MuSP.clearPreferenceByNameAndKey(this, "time", "event_time");
                 break;
             case R.id.sp_remove_time:
-                MuSP.clearPreferenceByName(this, "flag");
+                MuSP.clearPreferenceByName(this, "time");
                 break;
         }
     }
