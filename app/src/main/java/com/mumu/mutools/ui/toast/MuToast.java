@@ -52,7 +52,9 @@ public class MuToast {
     private static final String YS_TOAST_TYPEFACE = "sans-serif-condensed";
 
     //当前的toast
-    private static Toast currentToast;
+    private static Toast lastToast;
+
+    private static boolean allowQueue = true;
 
     //info形式toast 字符串
     public static void info(@NonNull String message) {
@@ -121,9 +123,8 @@ public class MuToast {
     //toast的具体实现
     @CheckResult
     public static Toast custom(@NonNull Context context, @NonNull String message, Drawable icon, @ColorInt int textColor, @ColorInt int tintColor, int duration, boolean withIcon, boolean shouldTint) {
-        if (currentToast == null) {
-            currentToast = new Toast(context);
-        }
+        final Toast currentToast = new Toast(context);
+
         final View toastLayout = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.ui_mu_widget_toast, null);
         final ImageView toastIcon = toastLayout.findViewById(R.id.ui_ys_widget_toast_iv_icon);
         final TextView toastTextView = toastLayout.findViewById(R.id.ui_ys_widget_toast_tv_msg);
@@ -151,7 +152,45 @@ public class MuToast {
 
         currentToast.setView(toastLayout);
         currentToast.setDuration(duration);
+
+        if (!allowQueue) {
+            if (lastToast != null)
+                lastToast.cancel();
+            lastToast = currentToast;
+        }
+
         return currentToast;
+    }
+
+    public static class Config {
+        //是否按照队列进行显示 true表示按照队列显示
+        //false表示不按队列显示 快速点击会取消上一个Toast来显示该Toast
+        private boolean allowQueue = true;
+
+        private Config() {
+            // avoiding instantiation
+        }
+
+        @CheckResult
+        public static Config getInstance() {
+            return new Config();
+        }
+
+        @CheckResult
+        public Config allowQueue(boolean allowQueue) {
+            this.allowQueue = allowQueue;
+            return this;
+        }
+
+        //重置属性
+        public static void reset() {
+            MuToast.allowQueue = true;
+        }
+
+        //支持属性到MuToast
+        public void apply() {
+            MuToast.allowQueue = allowQueue;
+        }
     }
 
 }

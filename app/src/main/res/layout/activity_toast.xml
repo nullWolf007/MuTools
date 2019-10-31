@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".demo.ToastActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/MuTvBold"
+            android:text="快速点击会每次创建Toast来显示该Toast" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/main_tv_info"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="info消息" />
+
+            <TextView
+                android:id="@+id/main_tv_success"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="success消息" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/main_tv_warning"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="warning消息" />
+
+            <TextView
+                android:id="@+id/main_tv_error"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="error消息" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/MuTvBold"
+            android:text="快速点击会取消上一个Toast来显示该Toast" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/toast_no_queue_tv_info"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="info消息" />
+
+            <TextView
+                android:id="@+id/toast_no_queue_tv_success"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="success消息" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/toast_no_queue_tv_warning"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="warning消息" />
+
+            <TextView
+                android:id="@+id/toast_no_queue_tv_error"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="error消息" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
