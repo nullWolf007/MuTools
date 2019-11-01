@@ -1,9 +1,10 @@
 package com.mumu.mutools.demo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mumu.kernel.MuTool;
 import com.mumu.mutools.R;

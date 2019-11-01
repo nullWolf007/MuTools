@@ -1,10 +1,11 @@
 package com.mumu.mutools.demo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mumu.kernel.MuTool;
 import com.mumu.mutools.R;
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_toast;
     //sp
     private TextView tv_sp;
+    //dialog
+    private TextView tv_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +28,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tv_toast = findViewById(R.id.main_tv_toast);
         tv_sp = findViewById(R.id.main_tv_sp);
+        tv_dialog = findViewById(R.id.main_tv_dialog);
 
         tv_toast.setOnClickListener(this);
         tv_sp.setOnClickListener(this);
+        tv_dialog.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_tv_sp://SharedPresences
                 intent = new Intent(this, SPActivity.class);
+                break;
+            case R.id.main_tv_dialog://dialog
+                intent = new Intent(this, DialogActivity.class);
                 break;
         }
         if (null != intent) {

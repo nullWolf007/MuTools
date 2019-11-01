@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".demo.SPActivity"></activity>
+        <activity android:name=".demo.DialogActivity"></activity>
+        <activity android:name=".demo.SPActivity" />
         <activity android:name=".demo.ToastActivity" />
         <activity android:name=".demo.MainActivity">
             <intent-filter>

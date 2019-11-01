@@ -3,7 +3,8 @@ package com.mumu.kernel.activity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
