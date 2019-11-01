@@ -21,7 +21,7 @@ allprojects {
 ### 2.在build.gradle(Module:app)的dependencies添加
 ```text
 dependencies {
-	implementation 'com.github.nullWolf007:MuTools:1.0.0'
+	implementation 'com.github.nullWolf007:MuTools:1.0.2'
 }
 ```
 
@@ -38,6 +38,7 @@ MuTool.init(this);
 
 | 版本  |            描述             |
 | :---: | :-------------------------: |
+|       |    添加Activity的工具类     |
 | 1.0.1 | 添加SharedPreferences工具类 |
 | 1.0.0 |       添加Toast工具类       |
 
