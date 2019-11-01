@@ -29,7 +29,15 @@ dependencies {
 }
 ```
 
-### 3.在Application中初始化
+### 3.在gradle.properties中添加
+
+```properties
+#表示当前项目启用 androidx
+android.useAndroidX=true
+```
+
+### 4.在Application中初始化
+
 ```java
 MuTool.init(this);
 ```
@@ -46,6 +54,7 @@ MuTool.init(this);
 
 | 版本  |            描述             |
 | :---: | :-------------------------: |
+| 1.0.3 |       升级到androidx        |
 | 1.0.2 |    添加Activity的工具类     |
 | 1.0.1 | 添加SharedPreferences工具类 |
 | 1.0.0 |       添加Toast工具类       |
