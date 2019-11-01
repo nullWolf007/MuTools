@@ -34,11 +34,15 @@ MuTool.init(this);
 
 [**查看文档**](https://github.com/nullWolf007/MuTools/wiki/MuTool-Wiki)
 
+[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/MuTool-Wiki)
+
+[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/MuTool-Wiki)
+
 ## 更新日志
 
 | 版本  |            描述             |
 | :---: | :-------------------------: |
-|       |    添加Activity的工具类     |
+| 1.0.2 |    添加Activity的工具类     |
 | 1.0.1 | 添加SharedPreferences工具类 |
 | 1.0.0 |       添加Toast工具类       |
 
