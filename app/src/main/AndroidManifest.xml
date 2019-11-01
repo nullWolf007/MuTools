@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mumu.mutools">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 录音所需权限：休眠唤醒机制 -->
+
     <application
         android:name=".demo.BaseApplication"
         android:allowBackup="true"
@@ -10,16 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".demo.DialogActivity"></activity>
-        <activity android:name=".demo.SPActivity" />
-        <activity android:name=".demo.ToastActivity" />
-        <activity android:name=".demo.MainActivity">
+        <activity android:name=".demo.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".demo.DialogActivity" />
+        <activity android:name=".demo.SPActivity" />
+        <activity android:name=".demo.ToastActivity" />
+        <activity android:name=".demo.MainActivity" />
     </application>
 
 </manifest>

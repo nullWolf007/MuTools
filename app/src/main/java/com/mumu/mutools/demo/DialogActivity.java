@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mumu.kernel.ui.view.dialog.MuDialogChooseImage;
 import com.mumu.mutools.R;
 
 public class DialogActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,8 +26,6 @@ public class DialogActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.dialog_tv_title:
-                MuDialogChooseImage muDialogChooseImage = new MuDialogChooseImage(this);
-                muDialogChooseImage.show();
                 break;
         }
     }

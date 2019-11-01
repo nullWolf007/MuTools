@@ -45,6 +45,7 @@ public class MuDialog extends Dialog {
         mLayoutParams.alpha = 1f;
         window.setAttributes(mLayoutParams);
         if (mLayoutParams != null) {
+            mLayoutParams.width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             mLayoutParams.height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             mLayoutParams.gravity = Gravity.CENTER;
         }
