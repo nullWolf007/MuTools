@@ -32,11 +32,11 @@ MuTool.init(this);
 
 ## 文档
 
-[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/MuTool-Wiki)
+[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/Home)
 
-[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/MuTool-Wiki)
+[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/Home)
 
-[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/MuTool-Wiki)
+[**查看文档**](https://github.com/nullWolf007/MuTools/wiki/Home)
 
 ## 更新日志
 
