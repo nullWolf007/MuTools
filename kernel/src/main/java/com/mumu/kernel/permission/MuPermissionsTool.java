@@ -1,146 +1,242 @@
 package com.mumu.kernel.permission;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.Settings;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * to be a better man.
  *
  * @author nullWolf
- * @date 2019/11/1
- * <p>
- * 权限的封装类
+ * @date 2019/11/4
  */
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Process;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MuPermissionsTool {
-    private final int mRequestCode = 100;//权限请求码
-    public static boolean showSystemSetting = true;
 
-    private MuPermissionsTool() {
-
-    }
-
-    private static MuPermissionsTool permissionsUtils;
-    private IPermissionsResult mPermissionsResult;
-
-    public static MuPermissionsTool getInstance() {
-        if (permissionsUtils == null) {
-            permissionsUtils = new MuPermissionsTool();
-        }
-        return permissionsUtils;
-    }
-
-    public void checkPermissions(Activity context, String[] permissions, @NonNull IPermissionsResult permissionsResult) {
-        mPermissionsResult = permissionsResult;
-        if (Build.VERSION.SDK_INT < 23) {//6.0才用动态权限
-            permissionsResult.passPermissions();
-            return;
-        }
-
-        //创建一个mPermissionList，逐个判断哪些权限未授予，未授予的权限存储到mPerrrmissionList中
-        List<String> mPermissionList = new ArrayList<>();
-        //逐个判断你要的权限是否已经通过
-        for (int i = 0; i < permissions.length; i++) {
-            if (ContextCompat.checkSelfPermission(context, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
-                mPermissionList.add(permissions[i]);//添加还未授予的权限
-            }
-        }
-
-        //申请权限
-        if (mPermissionList.size() > 0) {//有权限没有通过，需要申请
-            ActivityCompat.requestPermissions(context, permissions, mRequestCode);
-        } else {
-            //说明权限都已经通过
-            permissionsResult.passPermissions();
-            return;
-        }
-    }
-
-    //请求权限后回调的方法
-    //参数： requestCode  是我们自己定义的权限请求码
-    //参数： permissions  是我们请求的权限名称数组
-    //参数： grantResults 是我们在弹出页面后是否允许权限的标识数组，数组的长度对应的是权限名称数组的长度，数组的数据0表示允许权限，-1表示我们点击了禁止权限
-    public void onRequestPermissionsResult(Activity context, int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        boolean hasPermissionDismiss = false;//有权限没有通过
-        if (mRequestCode == requestCode) {
-            for (int i = 0; i < grantResults.length; i++) {
-                if (grantResults[i] == -1) {
-                    hasPermissionDismiss = true;
-                }
-            }
-            //如果有权限没有被允许
-            if (hasPermissionDismiss) {
-                if (showSystemSetting) {
-                    showSystemPermissionsSettingDialog(context);//跳转到系统设置权限页面，或者直接关闭页面，不让他继续访问
-                } else {
-                    mPermissionsResult.forbidPermissions();
-                }
-            } else {
-                //全部权限通过，可以进行下一步操作。。。
-                mPermissionsResult.passPermissions();
-            }
-        }
-    }
-
+    private static int requestCode = 775;
 
     /**
-     * 不再提示权限时的展示对话框
+     * 动态申请权限
      */
-    AlertDialog mPermissionDialog;
-
-    private void showSystemPermissionsSettingDialog(final Activity context) {
-        final String mPackName = context.getPackageName();
-        if (mPermissionDialog == null) {
-            mPermissionDialog = new AlertDialog.Builder(context)
-                    .setMessage("已禁用权限，请手动授予")
-                    .setPositiveButton("设置", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            cancelPermissionDialog();
-                            Uri packageURI = Uri.parse("package:" + mPackName);
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                            context.startActivity(intent);
-                            context.finish();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //关闭页面或者做其他操作
-                            cancelPermissionDialog();
-                            //mContext.finish();
-                            mPermissionsResult.forbidPermissions();
-                        }
-                    })
-                    .create();
-        }
-        mPermissionDialog.show();
+    public static void requestPermission(Activity activity, PermissionListener permissionListener, String... permissions) {
+        requestPermission(activity, requestCode, permissionListener, permissions);
     }
 
-    //关闭对话框
-    private void cancelPermissionDialog() {
-        if (mPermissionDialog != null) {
-            mPermissionDialog.cancel();
-            mPermissionDialog = null;
+    public static void requestPermission(Activity activity, int requestCode, PermissionListener permissionListener, String... permissions) {
+        MuPermissionsTool.requestCode = requestCode;
+        if (Build.VERSION.SDK_INT < 23) {
+            if (permissionListener != null)
+                permissionListener.onPermissionSucceed(MuPermissionsTool.requestCode, Arrays.asList(permissions));
+        } else {
+            try {
+                //利用Fragment申请权限,不用开发者处理onRequestPermissionsResult了
+                PermissionFragment permissionFragment = new PermissionFragment();
+                permissionFragment.setPermission(permissionListener, MuPermissionsTool.requestCode, permissions);
+                activity.getFragmentManager().beginTransaction().add(Window.ID_ANDROID_CONTENT, permissionFragment).commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public interface IPermissionsResult {
-        void passPermissions();
+    /**
+     * 动态申请权限,被拒一次后申请前增加提示框
+     */
+    public static void requestRationalePermission(Activity activity, PermissionListener permissionListener, String... permissions) {
+        requestRationalePermission(activity, MuPermissionsTool.requestCode, permissionListener, permissions);
+    }
 
-        void forbidPermissions();
+    public static void requestRationalePermission(final Activity activity, final int requestCode, final PermissionListener permissionListener, final String... permissions) {
+        MuPermissionsTool.requestCode = requestCode;
+        if (Build.VERSION.SDK_INT < 23) {
+            permissionListener.onPermissionSucceed(MuPermissionsTool.requestCode, Arrays.asList(permissions));
+        } else {
+            if (isRationalePermission(activity, permissions)) {
+                showRequestAgainDialog(activity, permissionListener, permissions);
+            } else if (isAlwaysDeniedPermission(activity, permissions)) {
+                showSettingDialog(activity, permissionListener);
+            } else {
+                requestPermission(activity, MuPermissionsTool.requestCode, permissionListener, permissions);
+            }
+        }
+    }
+
+    /**
+     * 显示手动设置权限对话框
+     */
+    public static void showRequestAgainDialog(final Activity activity, final PermissionListener permissionListener, final String... permissions) {
+        new AlertDialog.Builder(activity)
+                .setTitle("权限已被拒绝")
+                .setMessage("您已经拒绝过我们申请授权，请您同意授权，否则功能无法正常使用！")
+                .setPositiveButton("同意", (dialog, which) -> {
+                    requestPermission(activity, MuPermissionsTool.requestCode, permissionListener, permissions);
+                })
+                .setNegativeButton("取消", (dialog, which) -> {
+                    permissionListener.onPermissionsDialogCancel();
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+    /**
+     * 显示手动设置权限对话框
+     */
+    public static void showSettingDialog(final Activity activity, final PermissionListener permissionListener) {
+        new AlertDialog.Builder(activity)
+                .setTitle("权限申请失败")
+                .setMessage("我们需要的一些权限被您拒绝且不再询问，请您到设置页面手动授权，否则功能无法正常使用！")
+                .setPositiveButton("去设置", (dialog, which) -> {
+                    Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+                    Uri uri = Uri.fromParts("package", activity.getPackageName(), (String) null);
+                    intent.setData(uri);
+                    activity.startActivityForResult(intent, MuPermissionsTool.requestCode);
+                })
+                .setNegativeButton("取消", (dialog, which) -> {
+                    permissionListener.onPermissionsDialogCancel();
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+    /**
+     * 是否有权限
+     */
+    public static boolean hasPermission(Context context, String... permissions) {
+        if (Build.VERSION.SDK_INT < 23) {
+            return true;
+        } else {
+            for (String permission : permissions) {
+                boolean hasPermission = context.checkPermission
+                        (permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+                if (!hasPermission) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    /**
+     * 是否被拒绝了一次了
+     */
+    public static boolean isRationalePermission(Activity activity, String... permissions) {
+        if (Build.VERSION.SDK_INT < 23) {
+            return false;
+        } else {
+            for (String permission : permissions) {
+                //有一个被拒了一次返回
+                if (activity.shouldShowRequestPermissionRationale(permission)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    /**
+     * 是否永远拒绝了
+     * 需要在被拒绝后调用
+     */
+    public static boolean isAlwaysDeniedPermission(Activity activity, String... permissions) {
+        return isAlwaysDeniedPermission(activity, Arrays.asList(permissions));
+    }
+
+    /**
+     * 是否永远拒绝了
+     * 需要在被拒绝后调用
+     */
+    public static boolean isAlwaysDeniedPermission(Activity activity, List<String> permissions) {
+        if (Build.VERSION.SDK_INT < 23) {
+            return false;
+        } else {
+            for (String permission : permissions) {
+                //有一个被永远拒了返回
+                //shouldShowRequestPermissionRationale只有拒绝了之后返回true
+                if (!activity.shouldShowRequestPermissionRationale(permission)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public static class PermissionFragment extends Fragment {
+        private PermissionListener permissionListener;
+        private int requestCode;
+        private String[] permissions;
+
+        public void setPermission(PermissionListener permissionListener, int requestCode, String... permissions) {
+            this.permissionListener = permissionListener;
+            this.requestCode = requestCode;
+            this.permissions = permissions;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            return new View(container.getContext());
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            try {
+                requestPermissions(permissions, requestCode);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        //申请权限回调
+        @Override
+        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            if (permissionListener != null) {
+                List<String> grantedList = new ArrayList<>();
+                List<String> deniedList = new ArrayList<>();
+                for (int i = 0; i < permissions.length; ++i) {
+                    if (grantResults[i] == 0) {
+                        grantedList.add(permissions[i]);
+                    } else {
+                        deniedList.add(permissions[i]);
+                    }
+                }
+                if (deniedList.isEmpty()) {
+                    permissionListener.onPermissionSucceed(requestCode, grantedList);
+                } else {
+                    permissionListener.onPermissionFailed(requestCode, deniedList);
+                }
+            }
+            getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+        }
+    }
+
+    public interface PermissionListener {
+        //权限申请成功
+        void onPermissionSucceed(int requestCode, List<String> grantedList);
+
+        //权限申请失败
+        void onPermissionFailed(int requestCode, List<String> deniedList);
+
+        //取消dialog
+        void onPermissionsDialogCancel();
     }
 }

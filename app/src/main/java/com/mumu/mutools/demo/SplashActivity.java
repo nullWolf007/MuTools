@@ -1,6 +1,5 @@
 package com.mumu.mutools.demo;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,38 +8,53 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mumu.kernel.permission.MuPermissionsTool;
-import com.mumu.kernel.toast.MuToast;
 import com.mumu.mutools.R;
 
-public class SplashActivity extends AppCompatActivity implements MuPermissionsTool.IPermissionsResult {
+import java.util.List;
 
+public class SplashActivity extends AppCompatActivity {
     public static String[] STORAGE_PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.RECORD_AUDIO};
+    public static int REQUEST_CODE = 233;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        MuPermissionsTool.getInstance().checkPermissions(this, STORAGE_PERMISSIONS, this);
+        permissionsDeal();
     }
 
     @Override
-    public void passPermissions() {
-        MuToast.info("权限全部通过");
-        finish();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void forbidPermissions() {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            permissionsDeal();
+        }
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        MuPermissionsTool.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    /**
+     * 权限处理
+     */
+    public void permissionsDeal() {
+        MuPermissionsTool.requestPermission(this, REQUEST_CODE, new MuPermissionsTool.PermissionListener() {
+            @Override
+            public void onPermissionSucceed(int requestCode, List<String> grantedList) {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onPermissionFailed(int requestCode, List<String> deniedList) {
+                String[] strings = new String[deniedList.size()];
+                deniedList.toArray(strings);
+                MuPermissionsTool.requestRationalePermission(SplashActivity.this, this, strings);
+            }
+
+            @Override
+            public void onPermissionsDialogCancel() {
+                SplashActivity.this.finish();
+            }
+        }, STORAGE_PERMISSIONS);
     }
 }
