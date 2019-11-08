@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="mu_textSize_text_sidebar">10sp</dimen>
+    <dimen name="mu_textSize_text_choose_show_sidebar">32sp</dimen>
+    <dimen name="mu_textSize_sidebar_padding">20dp</dimen>
+    <dimen name="mu_radius_sidebar">20dp</dimen>
+    <dimen name="mu_ball_radius_sidebar">24dp</dimen>
+
+</resources>

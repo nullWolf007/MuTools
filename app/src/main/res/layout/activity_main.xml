@@ -37,6 +37,11 @@
                 style="@style/MuBtnBlueCornersThree"
                 android:text="Dialog" />
 
+            <TextView
+                android:id="@+id/main_tv_sidebar"
+                style="@style/MuBtnBlueCornersThree"
+                android:text="Sidebar" />
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

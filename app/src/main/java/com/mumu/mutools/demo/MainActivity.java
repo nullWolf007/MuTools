@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_sp;
     //dialog
     private TextView tv_dialog;
+    //sidebar
+    private TextView tv_sidebar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_toast = findViewById(R.id.main_tv_toast);
         tv_sp = findViewById(R.id.main_tv_sp);
         tv_dialog = findViewById(R.id.main_tv_dialog);
+        tv_sidebar = findViewById(R.id.main_tv_sidebar);
 
         tv_toast.setOnClickListener(this);
         tv_sp.setOnClickListener(this);
         tv_dialog.setOnClickListener(this);
+        tv_sidebar.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_tv_dialog://dialog
                 intent = new Intent(this, DialogActivity.class);
+                break;
+            case R.id.main_tv_sidebar://sidebar
+                intent = new Intent(this, AZSidebarActivity.class);
                 break;
         }
         if (null != intent) {

@@ -30,7 +30,6 @@ public class SplashActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             permissionsDeal();
         }
-
     }
 
     /**

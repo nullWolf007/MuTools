@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MuAZSideBar">
+        <!--默认字体颜色-->
+        <attr name="sidebarTextColor" format="color|reference" />
+        <!--//选中字体小字颜色-->
+        <attr name="sidebarChooseTextColor" format="color|reference" />
+        <!--//选中字体大字颜色-->
+        <attr name="sidebarChooseShowTextColor" format="color|reference" />
+        <!--//圆形背景颜色-->
+        <attr name="sidebarCircleBgColor" format="color|reference" />
+
+        <!--默认字体小字大小-->
+        <attr name="sidebarTextSize" format="dimension" />
+        <!--选中字体大字大小-->
+        <attr name="sidebarChooseShowTextSize" format="dimension" />
+        <attr name="sidebarRadius" format="dimension" />
+        <!--圆的半径-->
+        <attr name="sidebarBallRadius" format="dimension" />
+    </declare-styleable>
+
+</resources>

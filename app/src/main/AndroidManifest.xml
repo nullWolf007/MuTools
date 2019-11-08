@@ -3,7 +3,7 @@
     package="com.mumu.mutools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 录音所需权限：休眠唤醒机制 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".demo.BaseApplication"
@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".demo.AZSidebarActivity"></activity>
         <activity android:name=".demo.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
