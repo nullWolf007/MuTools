@@ -61,7 +61,12 @@ public class MuFileTool {
         return file.exists();
     }
 
-
+    /**
+     * 判断目录是否存在，不存在则判断是否创建成功
+     *
+     * @param dirPath 文件路径
+     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     */
     public static boolean createOrExistsDir(@NonNull String dirPath) {
         return createOrExistsDir(getFileByPath(dirPath));
     }
