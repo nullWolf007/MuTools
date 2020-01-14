@@ -54,7 +54,8 @@ MuTool.init(this);
 
 | 版本  |                      描述                       |
 | :---: | :---------------------------------------------: |
-|       |        添加仿微信通讯录侧边栏MuAZSidebar        |
+| 1.0.6 |            添加文件工具类MuFileTool             |
+| 1.0.5 |        添加仿微信通讯录侧边栏MuAZSidebar        |
 | 1.0.4 | 升级为JAVA_1.8；添加权限工具类MuPermissionsTool |
 | 1.0.3 |                 升级到androidx                  |
 | 1.0.2 |              添加Activity的工具类               |
