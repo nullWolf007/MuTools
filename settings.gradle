@@ -1,1 +1,3 @@
+include ':kit'
+include ':kit'
 include ':app', ':kernel'
